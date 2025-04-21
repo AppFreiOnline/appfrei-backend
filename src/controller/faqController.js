@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as db from '../service/faqService.js';
+import * as sv from '../service/faqService.js';
 
 const endpoints = Router();
 
@@ -7,7 +7,7 @@ endpoints.post('/faq', async (req, resp) => {
     try {
         let faq = req.body;
 
-        let id = await db.inserirService(faq);
+        let id = await sv.inserirService(faq);
         resp.send({
             novoId: id
         })
@@ -22,7 +22,7 @@ endpoints.post('/faq', async (req, resp) => {
 endpoints.get('/faq', async (req, resp) => {
     try {
 
-        let registros = await db.consultarService();
+        let registros = await sv.consultarService();
         resp.send(registros);
     }
     catch (err) {
@@ -36,7 +36,7 @@ endpoints.get('/faq/:id', async (req, resp) => {
     try {
         let id = req.params.id;
 
-        let registros = await db.consultarServiceId(id);
+        let registros = await sv.consultarServiceId(id);
         resp.send(registros);
     }
     catch (err) {
@@ -51,7 +51,7 @@ endpoints.put('/faq/:id', async (req, resp) => {
         let id = req.params.id;
         let faq = req.body;
 
-        let linhasAfetadas = await db.alterarService(faq, id);
+        let linhasAfetadas = await sv.alterarService(faq, id);
 
         if (linhasAfetadas >= 1){
             resp.send();
@@ -70,7 +70,7 @@ endpoints.delete('/faq/:id', async (req, resp) => {
     try {
         let id = req.params.id;
 
-        let linhasAfetadas = await db.deletarService(id);
+        let linhasAfetadas = await sv.deletarService(id);
 
         if (linhasAfetadas >= 1){
             resp.send();

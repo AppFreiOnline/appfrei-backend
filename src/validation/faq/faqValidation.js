@@ -4,10 +4,10 @@ export function inserirValidation (faq) {
         throw new Error('Os parâmetros devem ser preenchidos corretamente');
     } 
     else if (!faq.pergunta) {
-        throw new Error('O parâmetro "pergunta" deve ser preenchido corretamente');
+        throw new Error("O parâmetro 'pergunta' deve ser preenchido corretamente");
     } 
     else if (!faq.resposta) {
-        throw new Error('O parâmetro "resposta" deve ser preenchido corretamente');
+        throw new Error("O parâmetro 'resposta' deve ser preenchido corretamente");
     }
 }
 
