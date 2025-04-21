@@ -2,8 +2,8 @@ import con from './connection.js';
 
 export async function inserirCadastro(cadastro) {
     const comando = `
-    insert into tb_cadastro(nm_usuario, sb_usuario, nr_cpf_usuario, em_usuario, dt_nascimento, ds_senha)
-                     values(?, ?, ?, ?, ?, ?);
+        INSERT INTO db_appfrei.tb_cadastro(nm_usuario, sb_usuario, nr_cpf_usuario, em_usuario, dt_nascimento, ds_senha)
+        VALUES (?, ?, ?, ?, ?, ?);
     `;
 
     let resposta = await con.query(comando, [cadastro.nome, cadastro.sobrenome, cadastro.cpf, cadastro.email, cadastro.nascimento, cadastro.senha]);
@@ -14,15 +14,16 @@ export async function inserirCadastro(cadastro) {
 
 export async function consultarCadastro() {
     const comando = `
-    select id_cadastro      id,
-           nm_usuario       nome,
-           sb_usuario       sobrenome,
-           nr_cpf_usuario   cpf,
-           em_usuario       email,
-           dt_nascimento    nascimento,
-           ds_senha         senha
-
-    from tb_cadastro;
+        SELECT 
+                id_cadastro      id,
+                nm_usuario       nome,
+                sb_usuario       sobrenome,
+                nr_cpf_usuario   cpf,
+                em_usuario       email,
+                dt_nascimento    nascimento,
+                ds_senha         senha
+        FROM    
+                db_appfrei.tb_cadastro;
     `;
 
     let resposta = await con.query(comando);
@@ -34,17 +35,19 @@ export async function consultarCadastro() {
 
 export async function consultarCadastroId(id) {
     const comando = `
-    select id_cadastro      id,
-           nm_usuario       nome,
-           sb_usuario       sobrenome,
-           nr_cpf_usuario   cpf,
-           em_usuario       email,
-           dt_nascimento    nascimento,
-           ds_senha         senha
+        SELECT 
+                id_cadastro      id,
+                nm_usuario       nome,
+                sb_usuario       sobrenome,
+                nr_cpf_usuario   cpf,
+                em_usuario       email,
+                dt_nascimento    nascimento,
+                ds_senha         senha
+        FROM 
+                db_appfrei.tb_cadastro
 
-    from tb_cadastro
-
-    where id_cadastro = ?
+        WHERE 
+                id_cadastro = ?
     `;
 
     let resposta = await con.query(comando, [id]);
@@ -54,16 +57,19 @@ export async function consultarCadastroId(id) {
 }
 
 export async function alterarCadastro(id, cadastro) {
-    let comando = `
-    update tb_cadastro
-    set nm_usuario = ?,
-        sb_usuario = ?,
-        nr_cpf_usuario = ?,
-        em_usuario = ?,
-        dt_nascimento = ?,
-        ds_senha = ?
+    const comando = `
+        UPDATE 
+                db_appfrei.tb_cadastro
+        SET 
+                nm_usuario      = ?,
+                sb_usuario      = ?,
+                nr_cpf_usuario  = ?,
+                em_usuario      = ?,
+                dt_nascimento   = ?,
+                ds_senha        = ?
 
-    where id_cadastro = ?
+        WHERE 
+                id_cadastro = ?
     `;
 
     let resposta = await con.query(comando, [cadastro.nome, cadastro.sobrenome, cadastro.cpf, cadastro.email, cadastro.nascimento, cadastro.senha, id]);
@@ -73,9 +79,11 @@ export async function alterarCadastro(id, cadastro) {
 }
 
 export async function deletarCadastro(id) {
-    let comando = `
-    delete from tb_cadastro
-    where id_cadastro = ?
+    const comando = `
+        DELETE FROM 
+                db_appfrei.tb_cadastro
+        WHERE  
+                id_cadastro = ?
     `;
 
     let resposta = await con.query(comando, [id]);

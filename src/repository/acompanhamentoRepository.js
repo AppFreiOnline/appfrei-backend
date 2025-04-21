@@ -1,10 +1,10 @@
 import con from './connection.js';
 
 export async function inserirAcompanhamento(acompanhamento) {
-    let comando = `
+    const comando = `
         INSERT INTO db_appfrei.tb_acompanhamento (op_primeira, op_segunda, cd_verificacao, bl_pre_inscrito, bl_taxa_paga, bl_aluno_aprovado, dt_pagamento, id_pre_inscricao)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?);
-    `
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
     let resposta = await con.query(comando, [acompanhamento.primeiraOpcao, acompanhamento.segundaOpcao, acompanhamento.codigoVerificacao, acompanhamento.preInscrito, acompanhamento.taxaPaga, acompanhamento.alunoAprovado, acompanhamento.dataPagamento, acompanhamento.idPreInscricao]);
     let registros = resposta[0];
@@ -13,7 +13,7 @@ export async function inserirAcompanhamento(acompanhamento) {
 }
 
 export async function consultarAcompanhamento() {
-    let comando = `
+    const comando = `
         SELECT 
                 id_acompanhamento   id,
                 op_primeira         primeiraOpcao,
@@ -25,8 +25,8 @@ export async function consultarAcompanhamento() {
                 dt_pagamento        dataPagamento,
                 id_pre_inscricao    idPreInscricao
           FROM 
-                db_appfrei.tb_acompanhamento;
-    `
+                db_appfrei.tb_acompanhamento
+    `;
 
     let resposta = await con.query(comando);
     let registros = resposta[0];
@@ -35,7 +35,7 @@ export async function consultarAcompanhamento() {
 }
 
 export async function consultarAcompanhamentoId(id) {
-    let comando = `
+    const comando = `
         SELECT 
                 id_acompanhamento   id,
                 op_primeira         primeiraOpcao,
@@ -49,8 +49,8 @@ export async function consultarAcompanhamentoId(id) {
           FROM 
                 db_appfrei.tb_acompanhamento
          WHERE 
-                id_acompanhamento = ?;
-    `
+                id_acompanhamento = ?
+    `;
 
     let resposta = await con.query(comando, [id]);
     let registros = resposta[0][0];
@@ -59,10 +59,10 @@ export async function consultarAcompanhamentoId(id) {
 }
 
 export async function alterarAcompanhamento(acompanhamento, id) {
-    let comando = `
+    const comando = `
         UPDATE 
                 db_appfrei.tb_acompanhamento
-        SET
+           SET
                 op_primeira         = ?,
                 op_segunda          = ?,
                 cd_verificacao      = ?,
@@ -71,9 +71,9 @@ export async function alterarAcompanhamento(acompanhamento, id) {
                 bl_aluno_aprovado   = ?,
                 dt_pagamento        = ?,
                 id_pre_inscricao    = ?
-        WHERE 
-                id_acompanhamento   = ?;
-    `
+         WHERE 
+                id_acompanhamento   = ?
+    `;
 
     let resposta = await con.query(comando, [acompanhamento.primeiraOpcao, acompanhamento.segundaOpcao, acompanhamento.codigoVerificacao, acompanhamento.preInscrito, acompanhamento.taxaPaga, acompanhamento.alunoAprovado, acompanhamento.dataPagamento, acompanhamento.idPreInscricao, id]);
     let registros = resposta[0];
@@ -82,12 +82,12 @@ export async function alterarAcompanhamento(acompanhamento, id) {
 }
 
 export async function deletarAcompanhamento(id) {
-    let comando = `
+    const comando = `
         DELETE FROM 
                 db_appfrei.tb_acompanhamento
         WHERE 
-                id_acompanhamento = ?;
-    `
+                id_acompanhamento = ?
+    `;
 
     let resposta = await con.query(comando, [id]);
     let registros = resposta[0];
