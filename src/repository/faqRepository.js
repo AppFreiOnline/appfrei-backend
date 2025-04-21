@@ -14,7 +14,7 @@ export async function inserirFaq(faq) {
 
 export async function consultarFaq() {
     let comando = `
-    SELECT  id 				    id,
+    SELECT  id_faq 				id,
             nm_pergunta 	    pergunta,
             ds_resposta   	    resposta
     FROM  
@@ -29,13 +29,13 @@ export async function consultarFaq() {
 
 export async function consultarFaqId(id) {
     let comando = `
-    SELECT  id 				    id,
+    SELECT  id_faq              id,
             nm_pergunta 	    pergunta,
             ds_resposta   	    resposta
     FROM  
             db_appfrei.tb_faq
     WHERE   
-            id = ?;
+            id_faq = ?;
     `
     
     let resposta = await con.query(comando, [id]);
@@ -52,7 +52,7 @@ export async function alterarFaq(faq, id) {
             nm_pergunta = ?,
             ds_resposta = ?
         WHERE 
-            id = ?;
+            id_faq = ?;
     `
 
     let resposta = await con.query(comando, [faq.pergunta, faq.resposta, id]);
@@ -66,7 +66,7 @@ export async function deletarFaq(id) {
         DELETE FROM 
             db_appfrei.tb_faq
         WHERE 
-            id = ?;
+            id_faq = ?;
     `
 
     let resposta = await con.query(comando, [id]);
