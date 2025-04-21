@@ -1,28 +1,28 @@
 import con from './connection.js';
 
-export async function adicionarUsuario(usuario){
+export async function inserirCadastro(cadastro) {
     const comando = `
-    insert into tb_usuario(nm_usuario, sbn_usuario, cpf_usuario, email_usuario, dt_nascimento, senha)
+    insert into tb_cadastro(nm_usuario, sb_usuario, nr_cpf_usuario, em_usuario, dt_nascimento, ds_senha)
                      values(?, ?, ?, ?, ?, ?);
     `;
 
-    let resposta = await con.query(comando, [cliente.nome, cliente.sobrenome, cliente.cpf, cliente.email, cliente.nascimento, cliente.senha]);
+    let resposta = await con.query(comando, [cadastro.nome, cadastro.sobrenome, cadastro.cpf, cadastro.email, cadastro.nascimento, cadastro.senha]);
     let info = resposta[0];
 
     return info.insertId;
 }
 
-export async function consultarUsuario(){
+export async function consultarCadastro() {
     const comando = `
-    select id_usuario       id,
+    select id_cadastro      id,
            nm_usuario       nome,
-           sbn_usuario      sobrenome,
-           cpf_usuario      cpf,
-           email_usuario    email,
+           sb_usuario       sobrenome,
+           nr_cpf_usuario   cpf,
+           em_usuario       email,
            dt_nascimento    nascimento,
            ds_senha         senha
 
-           from tb_usuario;
+    from tb_cadastro;
     `;
 
     let resposta = await con.query(comando);
@@ -32,29 +32,50 @@ export async function consultarUsuario(){
 
 }
 
-export async function alterarUsuario(id, usuario){
-    let comando = `
-    update tb_usuario
-    set nm_usuario = ?,
-        sbn_usuario = ?,
-        cpf_usuario = ?,
-        email_usuario = ?,
-        dt_nascimento = ?,
-        ds_senha = ?
-    
-    where id_usuario = ?
+export async function consultarCadastroId(id) {
+    const comando = `
+    select id_cadastro      id,
+           nm_usuario       nome,
+           sb_usuario       sobrenome,
+           nr_cpf_usuario   cpf,
+           em_usuario       email,
+           dt_nascimento    nascimento,
+           ds_senha         senha
+
+    from tb_cadastro
+
+    where id_cadastro = ?
     `;
 
-    let resposta = await con.query(comando, [usuario.nome, usuario.sobrenome, usuario.cpf, usuario.email, usuario.nascimento, usuario.senha, id]);
+    let resposta = await con.query(comando, [id]);
+    let registros = resposta[0][0];
+
+    return registros
+}
+
+export async function alterarCadastro(id, cadastro) {
+    let comando = `
+    update tb_cadastro
+    set nm_usuario = ?,
+        sb_usuario = ?,
+        nr_cpf_usuario = ?,
+        em_usuario = ?,
+        dt_nascimento = ?,
+        ds_senha = ?
+
+    where id_cadastro = ?
+    `;
+
+    let resposta = await con.query(comando, [cadastro.nome, cadastro.sobrenome, cadastro.cpf, cadastro.email, cadastro.nascimento, cadastro.senha, id]);
     let info = resposta[0];
 
     return info.affectedRows;
 }
 
-export async function removerUsuario(id){
+export async function deletarCadastro(id) {
     let comando = `
-    delete from tb_usuario
-    where id_usuario = ?
+    delete from tb_cadastro
+    where id_cadastro = ?
     `;
 
     let resposta = await con.query(comando, [id]);
