@@ -52,7 +52,12 @@ endpoints.put('/preInscricao/:id', async (req, resp) => {
         let inscricao = req.body;
 
         let linhasAfetadas = await db.alterarService(id, inscricao);
-        resp.send(linhasAfetadas);
+        
+        if (linhasAfetadas >= 1){
+            resp.send();
+        } else {
+            resp.status(404).send({ erro: 'Nenhum registro encontrado'});
+        }
     }
     catch (err) {
         resp.status(400).send({
@@ -67,7 +72,12 @@ endpoints.delete('/preInscricao/:id', async (req, resp) => {
         let id = req.params.id;
 
         let linhasAfetadas = await db.deletarService(id);
-        resp.send(linhasAfetadas);
+        
+        if (linhasAfetadas >= 1){
+            resp.send();
+        } else {
+            resp.status(404).send({ erro: 'Nenhum registro encontrado'});
+        }
     }
     catch (err) {
         resp.status(400).send({
