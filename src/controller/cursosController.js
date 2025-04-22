@@ -24,7 +24,6 @@ endpoints.get('/cursos', async (req, resp) => {
         let registros = await sv.consultarService();
 
         resp.send(registros);
-
     } 
     catch (err) {
         resp.status(400).send({
@@ -53,7 +52,7 @@ endpoints.put('/cursos/:id', async (req, resp) => {
         let curso = req.body;
 
         let linhasAfetadas = await sv.alterarService(curso, id);
-        
+
         if (linhasAfetadas >= 1){
             resp.send();
         } else {

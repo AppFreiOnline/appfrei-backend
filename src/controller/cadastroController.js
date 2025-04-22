@@ -6,12 +6,11 @@ const endpoints = Router();
 endpoints.post('/cadastro', async (req, resp) => {
     try {
         let cadastro = req.body;
-
         let id = await db.inserirService(cadastro);
+        
         resp.send({
             novoId: id
         })
-
     }
     catch (err) {
         resp.status(400).send({
@@ -23,6 +22,7 @@ endpoints.post('/cadastro', async (req, resp) => {
 endpoints.get('/cadastro', async (req, resp) => {
     try {
         let registros = await db.consultarService();
+        
         resp.send(registros)
     }
     catch (err) {
@@ -52,7 +52,7 @@ endpoints.put('/cadastro/:id', async (req, resp) => {
         let cadastro = req.body;
 
         let linhasAfetadas = await db.alterarService(id, cadastro);
-        
+
         if (linhasAfetadas >= 1){
             resp.send();
         } else {
@@ -67,7 +67,6 @@ endpoints.put('/cadastro/:id', async (req, resp) => {
 })
 
 endpoints.delete('/cadastro/:id', async (req, resp) => {
-
     try {
         let id = req.params.id;
 

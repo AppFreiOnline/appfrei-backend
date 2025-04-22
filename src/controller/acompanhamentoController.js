@@ -22,6 +22,7 @@ endpoints.post('/acompanhamento', async (req, resp) => {
 endpoints.get('/acompanhamento', async (req, resp) => {
     try {
         let registros = await sv.consultarService();
+        
         resp.send(registros);
     } 
     catch (err) {

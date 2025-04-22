@@ -6,8 +6,8 @@ const endpoints = Router();
 endpoints.post('/faq', async (req, resp) => {
     try {
         let faq = req.body;
-
         let id = await sv.inserirService(faq);
+
         resp.send({
             novoId: id
         })
@@ -21,8 +21,8 @@ endpoints.post('/faq', async (req, resp) => {
 
 endpoints.get('/faq', async (req, resp) => {
     try {
-
         let registros = await sv.consultarService();
+
         resp.send(registros);
     }
     catch (err) {
@@ -35,8 +35,8 @@ endpoints.get('/faq', async (req, resp) => {
 endpoints.get('/faq/:id', async (req, resp) => {
     try {
         let id = req.params.id;
-
         let registros = await sv.consultarServiceId(id);
+        
         resp.send(registros);
     }
     catch (err) {

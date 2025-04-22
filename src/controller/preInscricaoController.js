@@ -6,8 +6,8 @@ const endpoints = Router();
 endpoints.post('/preInscricao', async (req, resp) => {
     try {
         let inscricao = req.body;
-
         let id = await db.inserirService(inscricao);
+        
         resp.send({
             novoId: id
         })
@@ -23,6 +23,7 @@ endpoints.post('/preInscricao', async (req, resp) => {
 endpoints.get('/preInscricao', async (req, resp) => {
     try {
         let registros = await db.consultarService();
+        
         resp.send(registros)
     }
     catch (err) {
@@ -69,7 +70,6 @@ endpoints.put('/preInscricao/:id', async (req, resp) => {
 endpoints.delete('/preInscricao/:id', async (req, resp) => {
     try {
         let id = req.params.id;
-
         let linhasAfetadas = await db.deletarService(id);
         
         if (linhasAfetadas >= 1){
