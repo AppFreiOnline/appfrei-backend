@@ -18,6 +18,8 @@ export async function consultarServiceId(id) {
     vl.IdValidation(id);
     
     let registros = await db.consultarFaqId(id);
+    if (!registros) throw new Error('Nenhum registro encontrado com o ID informado');
+
     return registros;
 }
 

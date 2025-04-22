@@ -17,6 +17,8 @@ export async function consultarServiceId(id){
     vl.IdValidation(id);
 
     let registros = await db.consultarPreInscricaoId(id);
+    if (!registros) throw new Error('Nenhum registro encontrado com o ID informado');
+    
     return registros;
 }
 
