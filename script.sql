@@ -6,8 +6,8 @@ CREATE TABLE tb_cadastro(
 id_cadastro         INT PRIMARY KEY AUTO_INCREMENT,
 nm_usuario          VARCHAR(30) NOT NULL,
 sb_usuario          VARCHAR(30) NOT NULL,
-nr_cpf_usuario      DECIMAL(11) NOT NULL,
-em_usuario          VARCHAR(100) NOT NULL,
+nr_cpf_usuario      DECIMAL(11) NOT NULL UNIQUE,
+em_usuario          VARCHAR(100) NOT NULL UNIQUE,
 dt_nascimento       DATE NOT NULL,
 ds_senha            VARCHAR(30) NOT NULL
 );
@@ -15,11 +15,11 @@ ds_senha            VARCHAR(30) NOT NULL
 CREATE TABLE tb_pre_inscricao(
 id_pre_inscricao        INT PRIMARY KEY AUTO_INCREMENT,
 nm_aluno                VARCHAR(60) NOT NULL,
-em_aluno                VARCHAR(100) NOT NULL,
+em_aluno                VARCHAR(100) NOT NULL UNIQUE,
 nr_tel_aluno            DECIMAL(11) NOT NULL,
 dt_nascimento_aluno     DATE NOT NULL,
 sx_aluno                VARCHAR(9) NOT NULL,
-nr_cpf_aluno            DECIMAL(11) NOT NULL,
+nr_cpf_aluno            DECIMAL(11) NOT NULL UNIQUE,
 cm_conheceu             VARCHAR(30) NOT NULL,
 vl_renda_familiar       DECIMAL(10,2) NOT NULL,
 qt_pessoas_residencia   INT NOT NULL,
@@ -29,7 +29,7 @@ nm_escola               VARCHAR(60) NOT NULL,
 op_primeira             VARCHAR(30) NOT NULL,
 op_segunda              VARCHAR(30) NOT NULL,
 bl_confirmado           BOOL NOT NULL,
-cd_verificacao          DECIMAL(4) NOT NULL,
+cd_verificacao          DECIMAL(4) NOT NULL UNIQUE,
 id_cadastro             INT NOT NULL,
 FOREIGN KEY (id_cadastro) REFERENCES tb_cadastro(id_cadastro)
 );
@@ -43,7 +43,7 @@ ds_curso            LONG NOT NULL,
 nr_idade_minima     INT NOT NULL,
 nr_idade_maxima     INT NOT NULL,
 ds_escolaridade_min VARCHAR(15),
-vl_contribuicao     DECIMAL(3,2),
+vl_contribuicao     DECIMAL(5,2),
 lk_video_apresenta  LONG,
 im_curso            LONGBLOB
 );
@@ -52,7 +52,7 @@ CREATE TABLE tb_acompanhamento(
 id_acompanhamento       INT PRIMARY KEY AUTO_INCREMENT,
 op_primeira             VARCHAR(30) NOT NULL,
 op_segunda              VARCHAR(30) NOT NULL,
-cd_verificacao          DECIMAL(4) NOT NULL,
+cd_verificacao          DECIMAL(4) NOT NULL UNIQUE,
 bl_pre_inscrito         BOOL NOT NULL,
 bl_taxa_paga            BOOL NOT NULL,
 bl_aluno_aprovado       BOOL NOT NULL,
