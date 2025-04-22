@@ -67,7 +67,6 @@ endpoints.put('/preInscricao/:id', async (req, resp) => {
 })
 
 endpoints.delete('/preInscricao/:id', async (req, resp) => {
-
     try {
         let id = req.params.id;
 
