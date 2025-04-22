@@ -16,4 +16,4 @@ const PORTA = process.env.PORTA
 
 servidor.listen(
     PORTA,
-    () => console.log(`API subiu com sucesso na porta ${PORTA} com sucesso!`));
+    () => console.log(`API subiu com sucesso na porta ${PORTA}!`));

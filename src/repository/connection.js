@@ -18,5 +18,5 @@ const con = await mysql.createConnection({
     }
 })
 
-console.log('--> DB Conectado com sucesso <--')
+console.log(' --> BD Conectado com sucesso <--')
 export default con;
