@@ -1,6 +1,6 @@
 import con from './connection.js';
 
-export async function inserirPreInscricao(inscricao){
+export async function inserirPreInscricao(inscricao) {
     const comando = `
         INSERT INTO db_appfrei.tb_pre_inscricao (nm_aluno, em_aluno, nr_tel_aluno, dt_nascimento_aluno, sx_aluno, nr_cpf_aluno, cm_conheceu, vl_renda_familiar, qt_pessoas_residencia, ds_escolaridade, tp_escola, nm_escola, op_primeira, op_segunda, bl_confirmado, cd_verificacao, id_cadastro)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -12,7 +12,7 @@ export async function inserirPreInscricao(inscricao){
     return info.insertId;
 }
 
-export async function consultarPreInscricao(){
+export async function consultarPreInscricao() {
     const comando = `
         SELECT 
                 id_pre_inscricao            id,
@@ -33,7 +33,7 @@ export async function consultarPreInscricao(){
                 bl_confirmado               confirmado,
                 cd_verificacao              codigo,
                 id_cadastro                 idCadastro
-         FROM
+        FROM
                 db_appfrei.tb_pre_inscricao
     `;
 
@@ -43,7 +43,7 @@ export async function consultarPreInscricao(){
     return registros;
 }
 
-export async function consultarPreInscricaoId(id){
+export async function consultarPreInscricaoId(id) {
     const comando = `
         SELECT 
                 id_pre_inscricao            id,
@@ -64,10 +64,10 @@ export async function consultarPreInscricaoId(id){
                 bl_confirmado               confirmado,
                 cd_verificacao              codigo,
                 id_cadastro                 idCadastro
-         FROM 
+        FROM 
                 db_appfrei.tb_pre_inscricao
 
-         WHERE  
+        WHERE  
                 id_pre_inscricao = ?
     `;
 
@@ -77,11 +77,11 @@ export async function consultarPreInscricaoId(id){
     return registros;
 }
 
-export async function alterarPreInscricao(id, inscricao){
+export async function alterarPreInscricao(id, inscricao) {
     const comando = `
         UPDATE 
                 db_appfrei.tb_pre_inscricao
-           SET 
+        SET 
                 nm_aluno               = ?,
                 em_aluno               = ?,
                 nr_tel_aluno           = ?,
@@ -99,11 +99,27 @@ export async function alterarPreInscricao(id, inscricao){
                 bl_confirmado          = ?,
                 cd_verificacao         = ?,
                 id_cadastro            = ?
-         WHERE 
+        WHERE 
                 id_pre_inscricao       = ?;
     `;
 
     let resposta = await con.query(comando, [inscricao.nome, inscricao.email, inscricao.telefone, inscricao.nascimento, inscricao.sexo, inscricao.cpf, inscricao.conheceu, inscricao.renda, inscricao.pessoas, inscricao.escolaridade, inscricao.tipoEscola, inscricao.nomeEscola, inscricao.primeiraOpcao, inscricao.segundaOpcao, inscricao.confirmado, inscricao.codigo, inscricao.idCadastro, id]);
+    let info = resposta[0];
+
+    return info.affectedRows;
+}
+
+export async function alterarConfirmacaoInscricao(cpf, confirmado) {
+    const comando = `
+        UPDATE
+                db_appfrei.tb_pre_inscricao
+        SET
+                bl_confirmado = ?
+        WHERE
+                nr_cpf_aluno = ?
+    `;
+
+    let resposta = await con.query(comando, [confirmado, cpf]);
     let info = resposta[0];
 
     return info.affectedRows;
