@@ -10,6 +10,8 @@ export async function inserirService(cadastro) {
 
 export async function consultarService() {
     let registros = await db.consultarCadastro();
+    if (!registros || (Array.isArray(registros) && registros.length === 0)) throw new Error('Nenhum cadastro encontrado');
+
     return registros;
 }
 

@@ -32,6 +32,10 @@ export function inserirValidation (curso) {
     }
 }
 
-export function IdValidation (id) {
+export function idValidation (id) {
     if (isNaN(id))  throw new Error('O ID deve ser preenchido corretamente');
+}
+
+export function tipoValidation (tipo) {
+    if (!tipo || !isNaN(tipo)) throw new Error('O tipo deve ser preenchido corretamente');
 }

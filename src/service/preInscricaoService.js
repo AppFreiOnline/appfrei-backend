@@ -10,6 +10,8 @@ export async function inserirService(inscricao){
 
 export async function consultarService() {
     let registros = await db.consultarPreInscricao();
+    if (!registros || (Array.isArray(registros) && registros.length === 0)) throw new Error('Nenhum registro encontrado');
+
     return registros;
 }
 

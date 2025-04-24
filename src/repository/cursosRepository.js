@@ -1,3 +1,4 @@
+import e from 'express';
 import con from './connection.js';
 
 export async function inserirCurso(curso) {
@@ -104,4 +105,30 @@ export async function deletarCurso(id) {
     let info = resposta[0]; 
     
     return info.affectedRows;
+}
+
+export async function consultarCursosTipo(tipo) {
+    const comando = `
+        SELECT 
+                id_curso                id,
+                nm_curso                nome,
+                tp_curso                tipo,
+                qt_carga_horaria        cargaHoraria,
+                ds_curso                descricao,
+                nr_idade_minima         idadeMinima,
+                nr_idade_maxima         idadeMaxima,
+                ds_escolaridade_min     escolaridadeMinima,
+                vl_contribuicao         contribuicao,
+                lk_video_apresenta      videoApresentacao,
+                im_curso                imagem
+        FROM 
+                db_appfrei.tb_cursos
+        WHERE 
+                tp_curso = ?
+    `;
+    
+    let resposta = await con.query(comando, [tipo]);
+    let registros = resposta[0]; 
+    
+    return registros;
 }

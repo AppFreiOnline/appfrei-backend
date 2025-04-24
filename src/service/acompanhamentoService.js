@@ -9,8 +9,9 @@ export async function inserirService(acompanhamento) {
 }
 
 export async function consultarService() {
-
     let registros = await db.consultarAcompanhamento();
+    if (!registros || (Array.isArray(registros) && registros.length === 0)) throw new Error('Nenhum registro encontrado');
+
     return registros;
 }
 
