@@ -32,6 +32,14 @@ export async function alterarService(id, inscricao) {
     return linhasAfetadas;
 }
 
+export async function alterarService(cpf, confirmado) {
+    vl.cpfValidation(cpf);
+    vl.confirmadoValidation(confirmado);
+
+    let linhasAfetadas = await db.alterarConfirmacaoInscricao(cpf, confirmado);
+    return linhasAfetadas;
+}
+
 export async function deletarService(id){
     vl.IdValidation(id);
 

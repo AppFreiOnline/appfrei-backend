@@ -90,7 +90,6 @@ export async function alterarCadastro(id, cadastro) {
                 em_usuario      = ?,
                 dt_nascimento   = ?,
                 ds_senha        = ?
-
         WHERE 
                 id_cadastro = ?
     `;
@@ -107,7 +106,6 @@ export async function alterarSenhaCadastro(cpf, senha){
                 db_appfrei.tb_cadastro
         SET
                 ds_senha = ?
-        
         WHERE
                 nr_cpf_usuario = ?
     `;

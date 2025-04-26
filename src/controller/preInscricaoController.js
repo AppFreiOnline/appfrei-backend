@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import * as db from '../service/preInscricaoService.js';
+import * as sv from '../service/preInscricaoService.js';
 
 const endpoints = Router();
 
 endpoints.post('/preInscricao', async (req, resp) => {
     try {
         let inscricao = req.body;
-        let id = await db.inserirService(inscricao);
+        let id = await sv.inserirService(inscricao);
         
         resp.send({
             novoId: id
@@ -22,7 +22,7 @@ endpoints.post('/preInscricao', async (req, resp) => {
 
 endpoints.get('/preInscricao', async (req, resp) => {
     try {
-        let registros = await db.consultarService();
+        let registros = await sv.consultarService();
         
         resp.send(registros)
     }
@@ -37,7 +37,7 @@ endpoints.get('/preInscricao/:id', async (req, resp) => {
     try {
         let id = req.params.id;
 
-        let registros = await db.consultarServiceId(id);
+        let registros = await sv.consultarServiceId(id);
         resp.send(registros)
     }
     catch (err) {
@@ -52,7 +52,27 @@ endpoints.put('/preInscricao/:id', async (req, resp) => {
         let id = req.params.id;
         let inscricao = req.body;
 
-        let linhasAfetadas = await db.alterarService(id, inscricao);
+        let linhasAfetadas = await sv.alterarService(id, inscricao);
+        
+        if (linhasAfetadas >= 1){
+            resp.send();
+        } else {
+            resp.status(404).send({ erro: 'Nenhum registro encontrado'});
+        }
+    }
+    catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
+endpoints.put('/preInscricao/confirmado/:cpf', async (req, resp) => {
+    try {
+        let cpf = req.params.cpf;
+        let confirmado = req.body.confirmado;
+
+        let linhasAfetadas = await sv.alterarService(cpf, confirmado);
         
         if (linhasAfetadas >= 1){
             resp.send();
@@ -70,7 +90,7 @@ endpoints.put('/preInscricao/:id', async (req, resp) => {
 endpoints.delete('/preInscricao/:id', async (req, resp) => {
     try {
         let id = req.params.id;
-        let linhasAfetadas = await db.deletarService(id);
+        let linhasAfetadas = await sv.deletarService(id);
         
         if (linhasAfetadas >= 1){
             resp.send();

@@ -27,3 +27,30 @@ export function IdValidation(id) {
         throw new Error('O ID deve ser preenchido corretamente')
     }
 }
+
+export function cpfValidation(cpf){
+    if (!cpf || isNaN(cpf)){
+        throw new Error('O CPF deve ser preenchido corretamente')
+    }
+    else if(String(cpf).length != 11){
+        throw new Error('O CPF deve conter 11 dígitos')
+    }
+}
+
+export function senhaValidation(senha){
+    if (!senha){
+        throw new Error('A senha deve ser preenchida corretamente')
+    }
+    else if(String(senha).length < 8){
+        throw new Error('A senha deve conter pelo menos 8 caracteres')
+    }
+}
+
+export function emailValidation(email){
+    if (!email){
+        throw new Error('O email deve ser preenchido corretamente')
+    }
+    else if(!String(email).includes("@") || !String(email).includes(".com")){
+        throw new Error('falta arroba ou ponto')
+    }
+}

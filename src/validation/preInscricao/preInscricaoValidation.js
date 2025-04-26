@@ -60,3 +60,18 @@ export function IdValidation(id) {
         throw new Error('O ID deve ser preenchido corretamente')
     }
 }
+
+export function cpfValidation(cpf){
+    if (!cpf || isNaN(cpf)){
+        throw new Error('O CPF deve ser preenchido corretamente')
+    }
+    else if(String(cpf).length != 11){
+        throw new Error('O CPF deve conter 11 dígitos')
+    }
+}
+
+export function confirmadoValidation(confirmado){
+    if(!confirmado){
+        throw new Error('A confirmação deve ser preenchido corretamente')
+    }
+}
