@@ -32,7 +32,7 @@ export async function alterarService(id, inscricao) {
     return linhasAfetadas;
 }
 
-export async function alterarService(cpf, confirmado) {
+export async function alterarServiceConfirmado(cpf, confirmado) {
     vl.cpfValidation(cpf);
     vl.confirmadoValidation(confirmado);
 

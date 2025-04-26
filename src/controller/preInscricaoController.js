@@ -72,7 +72,7 @@ endpoints.put('/preInscricao/confirmado/:cpf', async (req, resp) => {
         let cpf = req.params.cpf;
         let confirmado = req.body.confirmado;
 
-        let linhasAfetadas = await sv.alterarService(cpf, confirmado);
+        let linhasAfetadas = await sv.alterarServiceConfirmado(cpf, confirmado);
         
         if (linhasAfetadas >= 1){
             resp.send();
