@@ -3,6 +3,9 @@ import * as vl from '../validation/cadastro/cadastroValidation.js';
 
 export async function inserirService(cadastro) {
     vl.inserirValidation(cadastro);
+    vl.cpfValidation(cadastro.cpf);
+    vl.emailValidation(cadastro.email);
+    vl.senhaValidation(cadastro.senha);
 
     let id = await db.inserirCadastro(cadastro);
     return id;
@@ -23,7 +26,7 @@ export async function consultarServiceId(id) {
     return registros;
 }
 
-export async function consultarServiceCpf(cpf){
+export async function consultarServiceCpf(cpf) {
     vl.cpfValidation(cpf);
 
     let registros = await db.consultarCadastroCpf(cpf);
@@ -34,12 +37,15 @@ export async function consultarServiceCpf(cpf){
 export async function alterarService(id, cadastro) {
     vl.IdValidation(id);
     vl.inserirValidation(cadastro);
+    vl.emailValidation(cadastro.email);
+    vl.senhaValidation(cadastro.senha);
+    
 
     let linhasAfetadas = await db.alterarCadastro(id, cadastro);
     return linhasAfetadas;
 }
 
-export async function alterarServiceSenha(cpf, senha){
+export async function alterarServiceSenha(cpf, senha) {
     vl.cpfValidation(cpf);
     vl.senhaValidation(senha);
 
@@ -54,7 +60,6 @@ export async function alterarServiceEmail(cpf, email) {
     let linhasAfetadas = await db.alterarEmailCadastro(cpf, email);
     return linhasAfetadas;
 }
-
 
 export async function deletarService(id) {
     vl.IdValidation(id);

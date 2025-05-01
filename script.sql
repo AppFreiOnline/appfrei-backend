@@ -71,7 +71,7 @@ ds_resposta         VARCHAR(500) NOT NULL
 
 CREATE TABLE tb_admin(
 id_admin            INT PRIMARY KEY AUTO_INCREMENT,
-nm_usuario          VARCHAR(30) NOT NULL UNIQUE,
-em_usuario          VARCHAR(100) NOT NULL UNIQUE,
+nm_admin          VARCHAR(30) NOT NULL UNIQUE,
+em_admin          VARCHAR(100) NOT NULL UNIQUE,
 ds_senha            VARCHAR(30) NOT NULL
 )

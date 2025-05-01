@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import * as sv from '../service/cadastroService.js';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoints = Router();
 
-endpoints.post('/cadastro', async (req, resp) => {
+endpoints.post('/cadastro', autenticar, async (req, resp) => {
     try {
         let cadastro = req.body;
         let id = await sv.inserirService(cadastro);
@@ -46,7 +47,7 @@ endpoints.get('/cadastro/:id', async (req, resp) => {
     }
 })
 
-endpoints.get('/cadastro/:cpf', async (req, resp) => {
+endpoints.get('/cadastro/cpf/:cpf', async (req, resp) => {
     try {
         let cpf = req.params.cpf;
 
@@ -60,7 +61,7 @@ endpoints.get('/cadastro/:cpf', async (req, resp) => {
     }
 })
 
-endpoints.put('/cadastro/:id', async (req, resp) => {
+endpoints.put('/cadastro/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let cadastro = req.body;
@@ -80,7 +81,7 @@ endpoints.put('/cadastro/:id', async (req, resp) => {
     }
 })
 
-endpoints.put('/cadastro/senha/:cpf', async (req, resp) => {
+endpoints.put('/cadastro/senha/:cpf', autenticar, async (req, resp) => {
     try {
         let cpf = req.params.cpf;
         let senha = req.body.senha;
@@ -100,7 +101,7 @@ endpoints.put('/cadastro/senha/:cpf', async (req, resp) => {
     }
 })
 
-endpoints.put('/cadastro/email/:cpf', async (req, resp) => {
+endpoints.put('/cadastro/email/:cpf', autenticar, async (req, resp) => {
     try {
         let cpf = req.params.cpf;
         let email = req.body.email;
@@ -120,7 +121,7 @@ endpoints.put('/cadastro/email/:cpf', async (req, resp) => {
     }
 })
 
-endpoints.delete('/cadastro/:id', async (req, resp) => {
+endpoints.delete('/cadastro/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 

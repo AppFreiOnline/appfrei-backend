@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import * as sv from '../service/acompanhamentoService.js';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoints = Router();
 
-endpoints.post('/acompanhamento', async (req, resp) => {
+endpoints.post('/acompanhamento', autenticar, async (req, resp) => {
     try {
         let acompanhamento = req.body;
         
@@ -46,7 +47,7 @@ endpoints.get('/acompanhamento/:id', async (req, resp) => {
     }
 })
 
-endpoints.put('/acompanhamento/:id', async (req, resp) => {
+endpoints.put('/acompanhamento/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let acompanhamento = req.body;
@@ -66,7 +67,7 @@ endpoints.put('/acompanhamento/:id', async (req, resp) => {
     }
 })
 
-endpoints.delete('/acompanhamento/:id', async (req, resp) => {
+endpoints.delete('/acompanhamento/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let linhasAfetadas = await sv.deletarService(id);

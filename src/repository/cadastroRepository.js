@@ -29,7 +29,7 @@ export async function consultarCadastro() {
     let resposta = await con.query(comando);
     let registros = resposta[0];
 
-    return registros
+    return registros;
 
 }
 
@@ -53,7 +53,7 @@ export async function consultarCadastroId(id) {
     let resposta = await con.query(comando, [id]);
     let registros = resposta[0][0];
 
-    return registros
+    return registros;
 }
 
 export async function consultarCadastroCpf(cpf){
@@ -76,7 +76,7 @@ export async function consultarCadastroCpf(cpf){
     let resposta = await con.query(comando, [cpf]);
     let registros = resposta[0][0];
 
-    return registros
+    return registros;
 }
 
 export async function alterarCadastro(id, cadastro) {

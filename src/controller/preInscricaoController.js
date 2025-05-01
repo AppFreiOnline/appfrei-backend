@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import * as sv from '../service/preInscricaoService.js';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoints = Router();
 
-endpoints.post('/preInscricao', async (req, resp) => {
+endpoints.post('/preInscricao', autenticar, async (req, resp) => {
     try {
         let inscricao = req.body;
         let id = await sv.inserirService(inscricao);
@@ -47,7 +48,7 @@ endpoints.get('/preInscricao/:id', async (req, resp) => {
     }
 })
 
-endpoints.put('/preInscricao/:id', async (req, resp) => {
+endpoints.put('/preInscricao/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let inscricao = req.body;
@@ -67,7 +68,7 @@ endpoints.put('/preInscricao/:id', async (req, resp) => {
     }
 })
 
-endpoints.put('/preInscricao/confirmado/:cpf', async (req, resp) => {
+endpoints.put('/preInscricao/confirmado/:cpf', autenticar, async (req, resp) => {
     try {
         let cpf = req.params.cpf;
         let confirmado = req.body.confirmado;
@@ -87,7 +88,7 @@ endpoints.put('/preInscricao/confirmado/:cpf', async (req, resp) => {
     }
 })
 
-endpoints.delete('/preInscricao/:id', async (req, resp) => {
+endpoints.delete('/preInscricao/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let linhasAfetadas = await sv.deletarService(id);

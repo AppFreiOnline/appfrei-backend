@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import * as sv from '../service/faqService.js';
+import { autenticar } from '../utils/jwt.js';
 
 const endpoints = Router();
 
-endpoints.post('/faq', async (req, resp) => {
+endpoints.post('/faq', autenticar, async (req, resp) => {
     try {
         let faq = req.body;
         let id = await sv.inserirService(faq);
@@ -46,7 +47,7 @@ endpoints.get('/faq/:id', async (req, resp) => {
     }
 })
 
-endpoints.put('/faq/:id', async (req, resp) => {
+endpoints.put('/faq/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
         let faq = req.body;
@@ -66,7 +67,7 @@ endpoints.put('/faq/:id', async (req, resp) => {
     }
 })
 
-endpoints.delete('/faq/:id', async (req, resp) => {
+endpoints.delete('/faq/:id', autenticar, async (req, resp) => {
     try {
         let id = req.params.id;
 

@@ -1,17 +1,17 @@
 import { Router } from 'express';
-import * as sv from '../service/cursosService.js';
-import { autenticar } from '../utils/jwt.js';
+import * as sv from '../service/adminService.js';
+import { gerarToken } from "../utils/jwt.js";
 
 const endpoints = Router();
 
-endpoints.post('/cursos', autenticar, async (req, resp) => {
+endpoints.post('/admin', async (req, resp) => {
     try {
-        let curso = req.body;
-        let id = await sv.inserirService(curso);
+        let admin = req.body;
+        let id = await sv.inserirService(admin);
 
         resp.send({
             novoId: id
-        });
+        })
     }
     catch (err) {
         resp.status(400).send({
@@ -20,19 +20,20 @@ endpoints.post('/cursos', autenticar, async (req, resp) => {
     }
 })
 
-endpoints.get('/cursos', async (req, resp) => {
+endpoints.post('/entrar', async (req, resp) => {
     try {
-        let tipo = req.query.tipo;
-        let registros = [];
+        let admin = req.body;
+        let usuario = await sv.verificarService(admin);
 
-        if (!tipo) {
-            registros = await sv.consultarService();
+        if (!usuario) {
+            resp.send({ erro: "Usuário ou senha incorreto(s)" })
         }
         else {
-            registros = await sv.consultarServiceTipo(tipo);
+            let token = gerarToken(usuario);
+            resp.send({
+                "token": token
+            })
         }
-
-        resp.send(registros);
     }
     catch (err) {
         resp.status(400).send({
@@ -41,12 +42,11 @@ endpoints.get('/cursos', async (req, resp) => {
     }
 })
 
-endpoints.get('/cursos/:id', async (req, resp) => {
+endpoints.get('/admin', async (req, resp) => {
     try {
-        let id = req.params.id;
-        let registros = await sv.consultarServiceId(id);
+        let registros = await sv.consultarService();
 
-        resp.send(registros);
+        resp.send(registros)
     }
     catch (err) {
         resp.status(400).send({
@@ -55,12 +55,12 @@ endpoints.get('/cursos/:id', async (req, resp) => {
     }
 })
 
-endpoints.put('/cursos/:id', autenticar, async (req, resp) => {
+endpoints.put('/admin/:id', async (req, resp) => {
     try {
         let id = req.params.id;
-        let curso = req.body;
+        let admin = req.body;
 
-        let linhasAfetadas = await sv.alterarService(curso, id);
+        let linhasAfetadas = await sv.alterarService(id, admin);
 
         if (linhasAfetadas >= 1) {
             resp.send();
@@ -75,9 +75,10 @@ endpoints.put('/cursos/:id', autenticar, async (req, resp) => {
     }
 })
 
-endpoints.delete('/cursos/:id', autenticar, async (req, resp) => {
+endpoints.delete('/admin/:id', async (req, resp) => {
     try {
         let id = req.params.id;
+
         let linhasAfetadas = await sv.deletarService(id);
 
         if (linhasAfetadas >= 1) {
@@ -91,6 +92,7 @@ endpoints.delete('/cursos/:id', autenticar, async (req, resp) => {
             erro: err.message
         })
     }
+
 })
 
 export default endpoints;
