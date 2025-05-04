@@ -41,8 +41,8 @@ export function emailValidation(email){
     if (!email){
         throw new Error('O email deve ser preenchido corretamente')
     }
-    else if(!String(email).includes("@") || !String(email).includes(".com")){
-        throw new Error('falta "@" ou ".com"')
+    else if(!String(email).includes("@")){
+        throw new Error('O email deve possuir "@"')
     }
 }
 
