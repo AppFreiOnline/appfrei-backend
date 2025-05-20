@@ -43,6 +43,72 @@ export async function consultarPreInscricao() {
     return registros;
 }
 
+export async function consultarPreInscricaoConfirmados() {
+    const comando = `
+        SELECT 
+                id_pre_inscricao            id,
+                nm_aluno                    nome,
+                em_aluno                    email,
+                nr_tel_aluno                telefone,
+                dt_nascimento_aluno         nascimento,
+                sx_aluno                    sexo,
+                nr_cpf_aluno                cpf,
+                cm_conheceu                 conheceu,
+                vl_renda_familiar           renda,
+                qt_pessoas_residencia       pessoas,
+                ds_escolaridade             escolaridade,
+                tp_escola                   tipoEscola,
+                nm_escola                   nomeEscola,
+                op_primeira                 primeiraOpcao,
+                op_segunda                  segundaOpcao,
+                bl_confirmado               confirmado,
+                cd_verificacao              codigo,
+                id_cadastro                 idCadastro
+        FROM
+                db_appfrei.tb_pre_inscricao
+        WHERE
+                bl_confirmado = true
+    `;
+
+    let resposta = await con.query(comando);
+    let registros = resposta[0];
+
+    return registros;
+}
+
+export async function consultarPreInscricaoNaoConfirmados() {
+    const comando = `
+        SELECT 
+                id_pre_inscricao            id,
+                nm_aluno                    nome,
+                em_aluno                    email,
+                nr_tel_aluno                telefone,
+                dt_nascimento_aluno         nascimento,
+                sx_aluno                    sexo,
+                nr_cpf_aluno                cpf,
+                cm_conheceu                 conheceu,
+                vl_renda_familiar           renda,
+                qt_pessoas_residencia       pessoas,
+                ds_escolaridade             escolaridade,
+                tp_escola                   tipoEscola,
+                nm_escola                   nomeEscola,
+                op_primeira                 primeiraOpcao,
+                op_segunda                  segundaOpcao,
+                bl_confirmado               confirmado,
+                cd_verificacao              codigo,
+                id_cadastro                 idCadastro
+        FROM
+                db_appfrei.tb_pre_inscricao
+        WHERE
+                bl_confirmado = false
+    `;
+
+    let resposta = await con.query(comando);
+    let registros = resposta[0];
+
+    return registros;
+}
+
 export async function consultarPreInscricaoId(id) {
     const comando = `
         SELECT 

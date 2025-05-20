@@ -34,6 +34,32 @@ endpoints.get('/preInscricao', async (req, resp) => {
     }
 })
 
+endpoints.get('/preInscricaoConfirmados', async (req, resp) => {
+    try {
+        let registros = await sv.consultarServiceConfirmados();
+        
+        resp.send(registros)
+    }
+    catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
+endpoints.get('/preInscricaoNaoConfirmados', async (req, resp) => {
+    try {
+        let registros = await sv.consultarServiceNaoConfirmados();
+        
+        resp.send(registros)
+    }
+    catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
 endpoints.get('/preInscricao/:id', async (req, resp) => {
     try {
         let id = req.params.id;

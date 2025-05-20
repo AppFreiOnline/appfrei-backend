@@ -15,6 +15,20 @@ export async function consultarService() {
     return registros;
 }
 
+export async function consultarServiceConfirmados() {
+    let registros = await db.consultarPreInscricaoConfirmados();
+    if (!registros || (Array.isArray(registros) && registros.length === 0)) throw new Error('Nenhum registro encontrado');
+
+    return registros;
+}
+
+export async function consultarServiceNaoConfirmados() {
+    let registros = await db.consultarPreInscricaoNaoConfirmados();
+    if (!registros || (Array.isArray(registros) && registros.length === 0)) throw new Error('Nenhum registro encontrado');
+
+    return registros;
+}
+
 export async function consultarServiceId(id){
     vl.IdValidation(id);
 
